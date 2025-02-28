@@ -18,3 +18,8 @@ npm run dev
 ```
 mill livechart.test
 ```
+
+# Resources
+- [Scalablytyped Mill Plugin](https://lolgab.github.io/mill-scalablytyped/#/)
+- [vite-plugin-scalajs-mill](https://github.com/aronbergurj99/vite-plugin-scalajs-mill)
+- [Example on how to use Vite with Scala.js](https://github.com/lolgab/scalajs-vite-example)
