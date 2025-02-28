@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Mill
+out/
+
+.metals
+.bsp
+.bloop
