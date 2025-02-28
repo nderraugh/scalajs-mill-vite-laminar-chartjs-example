@@ -5,6 +5,10 @@ import scalalib._
 import scalajslib._
 import scalajslib.api._
 
+import $ivy.`com.github.lolgab::mill-scalablytyped::0.1.15`
+
+import com.github.lolgab.mill.scalablytyped.ScalablyTyped
+
 trait AppScalaJSModule extends ScalaJSModule {
   def scalaVersion = "3.6.3"
   def scalaJSVersion = "1.18.2"
@@ -22,9 +26,12 @@ trait AppScalaJSModule extends ScalaJSModule {
 
 object `package` extends RootModule {
 
+  object scalablytyped extends AppScalaJSModule with ScalablyTyped
+
   object livechart extends AppScalaJSModule {
 
     def moduleSplitStyle = ModuleSplitStyle.SmallModulesFor(List("livechart"))
+    def moduleDeps = Seq(scalablytyped)
 
     object test extends ScalaTests with ScalaJSTests with TestModule.Munit {
       def ivyDeps = Agg(
