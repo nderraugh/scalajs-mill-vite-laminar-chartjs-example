@@ -13,6 +13,10 @@ trait AppScalaJSModule extends ScalaJSModule {
 
   def ivyDeps = Agg(
     ivy"org.scala-js::scalajs-dom::2.8.0",
+
+    // sbt seems to be the only common build system that manages the _sjs1_3 suffix.
+    // https://github.com/scalacenter/scaladex?tab=readme-ov-file#how-it-works
+    ivy"com.raquo:laminar_sjs1_3:17.2.0"
   )
 }
 
@@ -21,6 +25,14 @@ object `package` extends RootModule {
   object livechart extends AppScalaJSModule {
 
     def moduleSplitStyle = ModuleSplitStyle.SmallModulesFor(List("livechart"))
+
+    object test extends ScalaTests with ScalaJSTests with TestModule.Munit {
+      def ivyDeps = Agg(
+        ivy"org.scalameta::munit::1.1.0"
+      )
+
+      def testFrameworks = Seq("munit.Framework")
+    }
 
   }
 }

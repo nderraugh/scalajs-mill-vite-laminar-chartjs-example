@@ -13,3 +13,8 @@ mill -w livechart.fastLinkJS
 ```
 npm run dev
 ```
+
+# Test
+```
+mill livechart.test
+```
