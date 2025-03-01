@@ -4,6 +4,10 @@ A clone of the [code](https://github.com/sjrd/scalajs-sbt-vite-laminar-chartjs-e
 
 The three main tags that exist in https://github.com/sjrd/scalajs-sbt-vite-laminar-chartjs-example for each phase of the [Getting Started](https://www.scala-js.org/doc/tutorial/scalajs-vite.html) examples have been created to help readers follow along.
 
+# Feedback
+
+Feedback and collaboration are welcome: open a GitHub issue.
+
 # Build & Incremental Reload
 ```
 mill -w livechart.fastLinkJS
