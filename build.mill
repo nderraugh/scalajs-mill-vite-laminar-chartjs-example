@@ -1,11 +1,14 @@
+//| mill-version: 1.0.0
+//| mill-jvm-version: 21
+//| mvnDeps:
+//| - com.github.lolgab::mill-scalablytyped::0.2.0
+
 package build
 
 import mill._
 import scalalib._
 import scalajslib._
 import scalajslib.api._
-
-import $ivy.`com.github.lolgab::mill-scalablytyped::0.1.15`
 
 import com.github.lolgab.mill.scalablytyped.ScalablyTyped
 
@@ -15,27 +18,29 @@ trait AppScalaJSModule extends ScalaJSModule {
   def moduleKind = ModuleKind.ESModule
   def scalaJSSourceMap = false
 
-  def ivyDeps = Agg(
-    ivy"org.scala-js::scalajs-dom::2.8.0",
+  def mvnDeps = Seq(
+    mvn"org.scala-js::scalajs-dom::2.8.0",
 
     // sbt seems to be the only common build system that manages the _sjs1_3 suffix.
     // https://github.com/scalacenter/scaladex?tab=readme-ov-file#how-it-works
-    ivy"com.raquo:laminar_sjs1_3:17.2.0"
+    mvn"com.raquo:laminar_sjs1_3:17.2.0"
   )
 }
 
-object `package` extends RootModule {
+object `package` extends ScalaModule {
+
+  def scalaVersion = "3.6.3"
 
   object scalablytyped extends AppScalaJSModule with ScalablyTyped
 
   object livechart extends AppScalaJSModule {
 
-    def moduleSplitStyle = ModuleSplitStyle.SmallModulesFor(List("livechart"))
+    def moduleSplitStyle = ModuleSplitStyle.SmallModulesFor("livechart")
     def moduleDeps = Seq(scalablytyped)
 
     object test extends ScalaTests with ScalaJSTests with TestModule.Munit {
-      def ivyDeps = Agg(
-        ivy"org.scalameta::munit::1.1.0"
+      def mvnDeps = Seq(
+        mvn"org.scalameta::munit::1.1.0"
       )
 
       def testFrameworks = Seq("munit.Framework")
