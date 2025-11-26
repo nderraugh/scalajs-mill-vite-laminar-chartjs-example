@@ -13,23 +13,23 @@ import scalajslib.api._
 import com.github.lolgab.mill.scalablytyped.ScalablyTyped
 
 trait AppScalaJSModule extends ScalaJSModule {
-  def scalaVersion = "3.6.3"
-  def scalaJSVersion = "1.18.2"
+  def scalaVersion = "3.7.4"
+  def scalaJSVersion = "1.20.1"
   def moduleKind = ModuleKind.ESModule
   def scalaJSSourceMap = false
 
   def mvnDeps = Seq(
-    mvn"org.scala-js::scalajs-dom::2.8.0",
+    mvn"org.scala-js::scalajs-dom::2.8.1",
 
     // sbt seems to be the only common build system that manages the _sjs1_3 suffix.
     // https://github.com/scalacenter/scaladex?tab=readme-ov-file#how-it-works
-    mvn"com.raquo:laminar_sjs1_3:17.2.0"
+    mvn"com.raquo:laminar_sjs1_3:17.2.1"
   )
 }
 
 object `package` extends ScalaModule {
 
-  def scalaVersion = "3.6.3"
+  def scalaVersion = "3.7.4"
 
   object scalablytyped extends AppScalaJSModule with ScalablyTyped
 
@@ -40,7 +40,7 @@ object `package` extends ScalaModule {
 
     object test extends ScalaTests with ScalaJSTests with TestModule.Munit {
       def mvnDeps = Seq(
-        mvn"org.scalameta::munit::1.1.0"
+        mvn"org.scalameta::munit::1.2.1"
       )
 
       def testFrameworks = Seq("munit.Framework")
