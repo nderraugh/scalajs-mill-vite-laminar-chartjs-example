@@ -23,32 +23,48 @@ object Main:
       h1("Live Chart"),
       renderDataTable(),
       renderDataChart(),
-      renderDataList(),
+      renderDataList()
     )
   end appElement
 
   def renderDataList(): Element =
     ul(
       children <-- dataSignal.split(_.id) { (id, initial, itemSignal) =>
-        li(child.text <-- itemSignal.map(item => s"${item.count} ${item.label}"))
+        li(
+          child.text <-- itemSignal.map(item => s"${item.count} ${item.label}")
+        )
       }
     )
   end renderDataList
 
   def renderDataTable(): Element =
     table(
-      thead(tr(th("Label"), th("Price"), th("Count"), th("Full price"), th("Action"))),
+      thead(
+        tr(
+          th("Label"),
+          th("Price"),
+          th("Count"),
+          th("Full price"),
+          th("Action")
+        )
+      ),
       tbody(
         children <-- dataSignal.split(_.id) { (id, initial, itemSignal) =>
           renderDataItem(id, itemSignal)
-        },
+        }
       ),
-      tfoot(tr(
-        td(button("➕", onClick --> (_ => addDataItem(DataItem())))),
-        td(),
-        td(),
-        td(child.text <-- dataSignal.map(data => "%.2f".format(data.map(_.fullPrice).sum))),
-      )),
+      tfoot(
+        tr(
+          td(button("➕", onClick --> (_ => addDataItem(DataItem())))),
+          td(),
+          td(),
+          td(
+            child.text <-- dataSignal.map(data =>
+              "%.2f".format(data.map(_.fullPrice).sum)
+            )
+          )
+        )
+      )
     )
   end renderDataTable
 
@@ -57,45 +73,58 @@ object Main:
       td(
         inputForString(
           itemSignal.map(_.label),
-          makeDataItemUpdater(id, { (item, newLabel) =>
-            item.copy(label = newLabel)
-          })
+          makeDataItemUpdater(
+            id,
+            { (item, newLabel) =>
+              item.copy(label = newLabel)
+            }
+          )
         )
       ),
       td(
         inputForDouble(
           itemSignal.map(_.price),
-          makeDataItemUpdater(id, { (item, newPrice) =>
-            item.copy(price = newPrice)
-          })
+          makeDataItemUpdater(
+            id,
+            { (item, newPrice) =>
+              item.copy(price = newPrice)
+            }
+          )
         )
       ),
       td(
         inputForInt(
           itemSignal.map(_.count),
-          makeDataItemUpdater(id, { (item, newCount) =>
-            item.copy(count = newCount)
-          })
+          makeDataItemUpdater(
+            id,
+            { (item, newCount) =>
+              item.copy(count = newCount)
+            }
+          )
         )
       ),
       td(
         child.text <-- itemSignal.map(item => "%.2f".format(item.fullPrice))
       ),
-      td(button("🗑️", onClick --> (_ => removeDataItem(id)))),
+      td(button("🗑️", onClick --> (_ => removeDataItem(id))))
     )
   end renderDataItem
 
-  def inputForString(valueSignal: Signal[String],
-      valueUpdater: Observer[String]): Input =
+  def inputForString(
+      valueSignal: Signal[String],
+      valueUpdater: Observer[String]
+  ): Input =
     input(
       typ := "text",
       value <-- valueSignal,
-      onInput.mapToValue --> valueUpdater,
+      onInput.mapToValue --> valueUpdater
     )
   end inputForString
 
-  def inputForDouble(valueSignal: Signal[Double],
-      valueUpdater: Observer[Double]): Input =
+  def inputForDouble(
+      valueSignal: Signal[Double],
+      valueUpdater: Observer[Double]
+  ): Input =
     val strValue = Var[String]("")
     input(
       typ := "text",
@@ -107,20 +136,22 @@ object Main:
       },
       strValue.signal --> { valueStr =>
         valueStr.toDoubleOption.foreach(valueUpdater.onNext)
-      },
+      }
     )
   end inputForDouble
 
-  def inputForInt(valueSignal: Signal[Int],
-      valueUpdater: Observer[Int]): Input =
+  def inputForInt(
+      valueSignal: Signal[Int],
+      valueUpdater: Observer[Int]
+  ): Input =
     input(
       typ := "text",
       controlled(
         value <-- valueSignal.map(_.toString),
-        onInput.mapToValue.map(_.toIntOption).collect {
-          case Some(newCount) => newCount
-        } --> valueUpdater,
-      ),
+        onInput.mapToValue.map(_.toIntOption).collect { case Some(newCount) =>
+          newCount
+        } --> valueUpdater
+      )
     )
   end inputForInt
 
@@ -190,7 +221,7 @@ object Main:
           chart.data.datasets.get(1).data = data.map(_.fullPrice).toJSArray
           chart.update()
         }
-      },
+      }
     )
   end renderDataChart
 end Main
