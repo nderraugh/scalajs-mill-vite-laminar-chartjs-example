@@ -40,7 +40,7 @@ object `package` extends ScalaModule {
 
     object test extends ScalaTests with ScalaJSTests with TestModule.Munit {
       def mvnDeps = Seq(
-        mvn"org.scalameta::munit::1.2.1"
+        mvn"org.scalameta::munit::1.2.4"
       )
 
       def testFrameworks = Seq("munit.Framework")
