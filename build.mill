@@ -1,7 +1,7 @@
-//| mill-version: 1.0.6
+//| mill-version: 1.1.5
 //| mill-jvm-version: 21
 //| mvnDeps:
-//| - com.github.lolgab::mill-scalablytyped::0.4.0
+//| - com.github.lolgab::mill-scalablytyped::0.4.1
 
 package build
 
@@ -13,7 +13,7 @@ import scalajslib.api._
 import com.github.lolgab.mill.scalablytyped.ScalablyTyped
 
 trait AppScalaJSModule extends ScalaJSModule {
-  def scalaVersion = "3.7.4"
+  def scalaVersion = "3.8.3"
   def scalaJSVersion = "1.20.2"
   def moduleKind = ModuleKind.ESModule
   def scalaJSSourceMap = false
@@ -21,15 +21,13 @@ trait AppScalaJSModule extends ScalaJSModule {
   def mvnDeps = Seq(
     mvn"org.scala-js::scalajs-dom::2.8.1",
 
-    // sbt seems to be the only common build system that manages the _sjs1_3 suffix.
-    // https://github.com/scalacenter/scaladex?tab=readme-ov-file#how-it-works
-    mvn"com.raquo:laminar_sjs1_3:17.2.1"
+    mvn"com.raquo::laminar::17.2.1"
   )
 }
 
 object `package` extends ScalaModule {
 
-  def scalaVersion = "3.7.4"
+  def scalaVersion = "3.8.3"
 
   object scalablytyped extends AppScalaJSModule with ScalablyTyped
 
