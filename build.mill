@@ -13,21 +13,20 @@ import scalajslib.api._
 import com.github.lolgab.mill.scalablytyped.ScalablyTyped
 
 trait AppScalaJSModule extends ScalaJSModule {
-  def scalaVersion = "3.8.3"
+  def scalaVersion = "3.8.4"
   def scalaJSVersion = "1.20.2"
   def moduleKind = ModuleKind.ESModule
   def scalaJSSourceMap = false
 
   def mvnDeps = Seq(
     mvn"org.scala-js::scalajs-dom::2.8.1",
-
     mvn"com.raquo::laminar::17.2.1"
   )
 }
 
 object `package` extends ScalaModule {
 
-  def scalaVersion = "3.8.3"
+  def scalaVersion = "3.8.4"
 
   object scalablytyped extends AppScalaJSModule with ScalablyTyped
 
