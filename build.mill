@@ -20,7 +20,6 @@ trait AppScalaJSModule extends ScalaJSModule {
 
   def mvnDeps = Seq(
     mvn"org.scala-js::scalajs-dom::2.8.1",
-
     mvn"com.raquo::laminar::17.2.1"
   )
 }
@@ -38,7 +37,7 @@ object `package` extends ScalaModule {
 
     object test extends ScalaTests with ScalaJSTests with TestModule.Munit {
       def mvnDeps = Seq(
-        mvn"org.scalameta::munit::1.2.4"
+        mvn"org.scalameta::munit::1.3.4"
       )
 
       def testFrameworks = Seq("munit.Framework")
