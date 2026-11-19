@@ -14,7 +14,7 @@ import com.github.lolgab.mill.scalablytyped.ScalablyTyped
 trait AppScalaJSModule extends ScalaJSModule {
 
   def scalaVersion = "3.10.1"
-  def scalaJSVersion = "1.22.0"
+  def scalaJSVersion = "1.23.0"
 
   def moduleKind = ModuleKind.ESModule
   def scalaJSSourceMap = false
